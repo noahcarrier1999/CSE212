@@ -1,3 +1,7 @@
+using System.Formats.Asn1;
+using System.IO.Pipes;
+using System.Runtime.CompilerServices;
+
 public static class Divisors {
     /// <summary>
     /// Entry point for the Divisors class
@@ -19,6 +23,12 @@ public static class Divisors {
     private static List<int> FindDivisors(int number) {
         List<int> results = new List<int>();
         // Todo problem 1
+        
+        for (int i = 1; i < number; i++){
+            if(number % i == 0 ){
+                results.Add(i);
+            }
+        }
         return results;
     }
 }
