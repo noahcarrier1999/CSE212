@@ -39,7 +39,28 @@ public static class ArraysTester {
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return new double[0]; // replace this return statement with your own
+
+        //Proccess: 
+        //     1. I first need a place to put the results so I will create and array to place the results in
+        //     2. I will need to loop through each of the items in length to multiply the number by each
+        //     3. I will add the result to the results list
+
+        //list to store the results into a new array
+        double[] results = new double[length];
+
+        //loops through the length for example the firts time around it is 0 then 1,2,3,4,5
+        //then multiplies the number by the length + 1 so it doesn't start with 0
+        //It adds the result to the array
+
+        //Example:
+        for (int i = 0; i < length; i++){
+             results[i] = number * (i + 1);
+        }
+        
+        
+    
+        //returns the array 
+        return results; // replace this return statement with your own
     }
     
     /// <summary>
@@ -57,5 +78,42 @@ public static class ArraysTester {
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
+        //Process:
+        //   The process that I a thinking now is to have 2 separate lists one that grabs the numbers with
+        //   the indexes over the count of the list subtracting the chosen amount to grab the number that 
+        //   will need to be moved to the front of the new list. The second list will be full of the numbers
+        //   are the other portion of the list. Then I combined the two lists into one list.
+
+        //list for the values that index is under the rotate amount
+        List<int> list1 = new List<int>();
+        List<int> list2 = new List<int>();
+
+        //This finds the the items that are above the amount partition
+        //  for example:
+        //      List[1,2,3,4,5,6,7,8,9] 
+        //      Amount 3
+        // this would make list1 be [7,8,9]
+        for (int i = data.Count - amount; i < data.Count; i++){
+            list1.Add(data[i]);
+        }
+
+        //This finds the items that are below the partition amount
+        // For the same example above 
+        // This would make list2 be [1,2,3,4,5,6]
+        for (int i = 0; i < data.Count - amount; i++){
+            list2.Add(data[i]);
+        }
+
+        //this combines the 2 lists
+        //so the list now is [7,8,9,1,2,3,4,5,6]
+        //which makes it look like it has rotated to the right
+        List<int> combinedList = new List<int>();
+        combinedList.AddRange(list1);
+        combinedList.AddRange(list2);
+
+        //this clears the original data in the list given
+        data.Clear();
+        //this adds the new list to the origianl now blank data
+        data.AddRange(combinedList);
     }
 }
