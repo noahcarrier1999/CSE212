@@ -37,6 +37,7 @@ class D
         {
             if (c.ContainsKey(x))
             {
+                //finds if there are multiple
                 c[x]++;
             }
             else
@@ -48,6 +49,7 @@ class D
         {
             switch (v)
             {
+                //if there is multiple then it give a greater value
                 case 2:
                     s += 10;
                     break;
