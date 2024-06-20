@@ -10,25 +10,90 @@ public class CustomerService {
 
         // Test Cases
 
+
+
+
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: When you set the size to 0 what happens
+        // Expected Result: default size should be 10
         Console.WriteLine("Test 1");
-
-        // Defect(s) Found: 
-
+        var serve = new CustomerService(0);
+        Console.WriteLine(serve);
+        //this correctly shows that right amount of costermerservice spots if it is 0
+        // Defect(s) Found: no defect
+        
         Console.WriteLine("=================");
+        
+
+
+
+
+
+
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Add a Customer to the queue
+        // Expected Result: it should show up in the list
         Console.WriteLine("Test 2");
 
-        // Defect(s) Found: 
+        serve = new CustomerService(5);
+        serve.AddNewCustomer();
+        Console.WriteLine(serve);
 
         Console.WriteLine("=================");
+        // Defect(s) Found: no defect found it works correctly
 
-        // Add more Test Cases As Needed Below
+        
+
+        //Test 3
+        //Scenerio:What happens when a customer is serviced
+        //expected:No errors
+        Console.WriteLine("Test 3");
+        serve = new CustomerService(4);
+        serve.AddNewCustomer();
+        serve.ServeCustomer();
+
+        // Defect(s) Found: it deleted the customers complaint before seving them
+
+
+
+
+        Console.WriteLine("======================");
+
+
+        //Test 4
+        //Scenerio:What happens when it is over capacity
+        //expected: it displays a message
+        Console.WriteLine("Test 4");
+
+        serve = new CustomerService(1);
+        serve.AddNewCustomer();
+        serve.AddNewCustomer();
+        Console.WriteLine(serve);
+
+        // Defect(s) Found: the message was not sent I had to change it to >=
+
+        Console.WriteLine("======================");
+
+
+
+
+
+
+
+
+        //Test 5
+        //Scenerio:What happens if I run CostomerServe with nobody in the queue
+        //expected: it displays a message
+        Console.WriteLine("Test 5");
+
+        serve = new CustomerService(5);
+        serve.ServeCustomer();
+        Console.WriteLine(serve);
+
+        // Defect(s) Found: No message displayed I had to add it.
+
+        Console.WriteLine("======================");
     }
 
     private readonly List<Customer> _queue = new();
@@ -67,7 +132,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +153,14 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        if(_queue.Count <=0){
+            Console.WriteLine("No Customers");
+        } else {
+            var customer = _queue[0];
+            _queue.RemoveAt(0);
+            Console.WriteLine(customer);
+        }
+        
     }
 
     /// <summary>
