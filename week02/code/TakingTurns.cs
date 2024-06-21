@@ -15,7 +15,8 @@
         // Console.WriteLine(players);    // This can be un-commented out for debug help
         while (players.Length > 0)
             players.GetNextPerson();
-        // Defect(s) Found: 
+        // Defect(s) Found: it is returning Sue Sue Sue Tim Tim Tim Tim Tim Bob Bob
+        //in the Person Queue it was adding the person to the front not the end of the que
 
         Console.WriteLine("---------");
 
@@ -38,7 +39,7 @@
         while (players.Length > 0)
             players.GetNextPerson();
 
-        // Defect(s) Found: 
+        // Defect(s) Found: This seems to work the way it is intended
 
         Console.WriteLine("---------");
 
@@ -56,7 +57,7 @@
             players.GetNextPerson();
             // Console.WriteLine(players);
         }
-        // Defect(s) Found: 
+        // Defect(s) Found: I had to make sure that it was >= 0 not just >0
 
         Console.WriteLine("---------");
 
@@ -73,7 +74,7 @@
             players.GetNextPerson();
             // Console.WriteLine(players);
         }
-        // Defect(s) Found: 
+        // Defect(s) Found: I made changes to make this work
 
         Console.WriteLine("---------");
 
@@ -83,6 +84,6 @@
         Console.WriteLine("Test 5");
         players = new TakingTurnsQueue();
         players.GetNextPerson();
-        // Defect(s) Found:
+        // Defect(s) Found: this works correctly
     }
 }
