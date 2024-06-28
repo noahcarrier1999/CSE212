@@ -30,6 +30,13 @@ public class Maze {
     /// </summary>
     public void MoveLeft() {
         // FILL IN CODE
+        
+        if (_currX < 1) {
+            Console.WriteLine("You cannot Go there");
+            
+        } else {
+            _currX -= 1;
+        }
     }
 
     /// <summary>
@@ -38,6 +45,12 @@ public class Maze {
     /// </summary>
     public void MoveRight() {
         // FILL IN CODE
+         if (_currX > 6) {
+            Console.WriteLine("You cannot Go there");
+            
+        } else {
+            _currX += 1;
+        }
     }
 
     /// <summary>
@@ -46,6 +59,12 @@ public class Maze {
     /// </summary>
     public void MoveUp() {
         // FILL IN CODE
+        if (_currY < 1) {
+            Console.WriteLine("You cannot Go there");
+            
+        } else {
+            _currY -= 1;
+        }
     }
 
     /// <summary>
@@ -54,6 +73,11 @@ public class Maze {
     /// </summary>
     public void MoveDown() {
         // FILL IN CODE
+        if (_currY > 6) {
+            Console.WriteLine("You cannot Go there");
+        } else {
+            _currY += 1;
+        }
     }
 
     public void ShowStatus() {

@@ -109,7 +109,29 @@ public static class SetsAndMapsTester {
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
     private static void DisplayPairs(string[] words) {
         // To display the pair correctly use something like:
-        // Console.WriteLine($"{word} & {pair}");
+
+        //created a set for the words
+        var wordset = new HashSet<string>(words);
+
+        //created a set for the results of the words that had pairs
+        var results = new List<string>();
+
+        //I went through ever word in the list, reversed the word
+        //and checked if the reversed word was in the word set and if it was 
+        //I added to the result and removed the word from the wordset
+        foreach(string word in words) {
+            var reverseWord = word[1].ToString() + word[0].ToString();
+            if(wordset.Contains(reverseWord)) {
+                results.Add($"{word},{reverseWord}");
+                wordset.Remove(word);
+                wordset.Remove(reverseWord);
+            }
+        }
+
+        foreach(var pair in results) {
+            Console.WriteLine(pair);
+        }
+        
         // Each pair of words should displayed on its own line.
     }
 
@@ -131,7 +153,12 @@ public static class SetsAndMapsTester {
         var degrees = new Dictionary<string, int>();
         foreach (var line in File.ReadLines(filename)) {
             var fields = line.Split(",");
-            // Todo Problem 2 - ADD YOUR CODE HERE
+            //I got the field for the degree
+            var degree = fields[3];
+            //I got the field for the id
+            var id = fields[2];
+            //I added the degree as the Key and the id as the value
+            degrees[degree]= int.Parse(id);
         }
 
         return degrees;
@@ -157,8 +184,47 @@ public static class SetsAndMapsTester {
     /// # Problem 3 #
     /// #############
     private static bool IsAnagram(string word1, string word2) {
-        // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+        //created variables for the word and pair
+        var word = word1;
+        var pair = word2;
+        
+        //normalized the strings to remove uppercase and spaces
+        word = word.ToLower().Replace(" ", "");
+        pair = pair.ToLower().Replace(" ", "");
+
+        // if they were not the same length then it wouldn't be a match
+        if (word.Length != pair.Length) {return false;}
+
+        //created a dictionary to count the letters in both the word and the pair
+        var wordCount = new Dictionary<char, int>();
+        var pairCount = new Dictionary<char, int>();
+
+        //counted to see how many of each letter was in the word
+        foreach(char letter in word) {
+            if(wordCount.ContainsKey(letter)){
+                wordCount[letter]++;
+            } else {
+                wordCount[letter] = 1;
+            }
+        }
+
+        //counted to see how many of each letter was in the pair
+         foreach(char letter in pair) {
+            if(pairCount.ContainsKey(letter)){
+                pairCount[letter]++;
+            } else {
+                pairCount[letter] = 1;
+            }
+        }
+
+        //compared the two dictionaries to see if they were the same
+        foreach(var item in wordCount){
+            if(!pairCount.ContainsKey(item.Key) || pairCount[item.Key] != item.Value){
+                return false;
+            }
+        }
+        return true;   
+        
     }
 
     /// <summary>
