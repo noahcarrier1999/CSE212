@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 public static class RecursionTester {
     /// <summary>
     /// Entry point for the Prove 8 tests
@@ -147,7 +149,11 @@ public static class RecursionTester {
     /// </summary>
     public static int SumSquaresRecursive(int n) {
         // TODO Start Problem 1
-        return 0;
+        if(n <= 0){
+            return 0;
+        } else {
+            return n*n + SumSquaresRecursive(n-1);;
+        }
     }
 
     /// <summary>
@@ -169,8 +175,19 @@ public static class RecursionTester {
     /// You can assume that the size specified is always valid (between 1 
     /// and the length of the letters list).
     /// </summary>
-    public static void PermutationsChoose(string letters, int size, string word = "") {
-        // TODO Start Problem 2
+     public static void PermutationsChoose(string letters, int size, string word = "")
+    {
+        if (word.Length == size)
+        {
+            Console.WriteLine(word);
+            return;
+        }
+
+        foreach (char letter in letters)
+        {
+            string remaining = letters.Replace(letter.ToString(), "");
+            PermutationsChoose(remaining, size, word + letter);
+        }
     }
 
     /// <summary>
@@ -247,8 +264,25 @@ public static class RecursionTester {
     /// Using recursion, display all possible binary strings for a given pattern.  You might find 
     /// some of the string functions like IndexOf and [..X] / [X..] to be useful in solving this problem.
     /// </summary>
-    public static void WildcardBinary(string pattern) {
-        // TODO Start Problem 4
+      public static void WildcardBinary(string pattern)
+    {
+        // Base case: if no wildcard is found, print the pattern
+        if (!pattern.Contains("*"))
+        {
+            Console.WriteLine(pattern);
+            return;
+        }
+
+        // Find the first wildcard
+        int index = pattern.IndexOf("*");
+
+        // Replace the wildcard with '0' and '1', and recursively call the method
+        string withZero = pattern.Substring(0, index) + '0' + pattern.Substring(index + 1);
+        string withOne = pattern.Substring(0, index) + '1' + pattern.Substring(index + 1);
+
+        // Recursive calls
+        WildcardBinary(withZero);
+        WildcardBinary(withOne);
     }
 
     /// <summary>
@@ -264,8 +298,28 @@ public static class RecursionTester {
         // currPath.Add((1,2)); // Use this syntax to add to the current path
 
         // TODO Start Problem 5
-        // ADD CODE HERE
+        currPath.Add((x,y));
 
+        if (maze.IsEnd(x,y)){
+            Console.WriteLine(string.Join("->",currPath));
+            return;
+        }
+
+        List<(int dx,int dy)> directions = new List<(int,int)>{
+            (1,0), //Move Right
+            (0,1), //Move Down
+            (-1,0), //Move left
+            (0,-1), //Move Up
+        };
+
+        foreach (var direction in directions) {
+            int newX = x + direction.dx;
+            int newY = y + direction.dy;
+
+            if(maze.IsValidMove(currPath,newX, newY)){
+                SolveMaze(maze,newX,newY,new List<ValueTuple<int,int>>(currPath));
+            }
+        }
         // Console.WriteLine(currPath.AsString()); // Use this to print out your path when you find the solution
     }
 }
